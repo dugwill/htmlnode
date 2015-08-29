@@ -308,19 +308,6 @@ func Find(root *html.Node, fragment string) []*html.Node {
 	return result
 }
 
-// FindPrev behaves like Find, but searches in the opposite direction.
-func FindPrev(root *html.Node, fragment string) []*html.Node {
-	var result []*html.Node
-	n, n2 := root, Leaf(fragment)
-	for n != nil {
-		if Match(n, n2) {
-			result = append(result, n)
-		}
-		n, _ = Prev(n, root)
-	}
-	return result
-}
-
 // String returns a human readable representation of the single node
 // n, with optional terminal coloring using ANSI escape codes. The
 // representation begins with a capital letter indicating the
