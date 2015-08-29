@@ -154,10 +154,10 @@ func Match(n1 *html.Node, n2 *html.Node) bool {
 }
 
 // Leaf converts an HTML fragment into a parse tree (without
-// html/head/body ElementNodes nodes or DocType nodes), and then from
-// the root of this tree repeatedly follows FirstChild until it finds
-// a leaf node. This leaf node is returned as its result. In order to
-// parse fragment, Leaf calls html.ParseFragment with a context of
+// html/head/body ElementNodes or DoctypeNode), and then from the root
+// of this tree repeatedly follows FirstChild until it finds a leaf
+// node. This leaf node is returned as its result. In order to parse
+// fragment, Leaf calls html.ParseFragment with a context of
 // html.Node{Type: html.ElementNode}. If there is an error parsing
 // fragment then Leaf returns a node of type html.ErrorNode. The
 // return value of Leaf is intended to be passed to Match as its
