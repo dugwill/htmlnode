@@ -178,11 +178,11 @@ func Leaf(fragment string) *html.Node {
 	return n
 }
 
-// Attr returns the first attribute in n.Attr whose Key field is equal
-// to key. The second return value indicates if the node has such an
-// attribute. If no such attribute exists Attr returns
-// ("",false). Note that the Namespace fields of n.Attr are not
-// compared.
+// Attr returns the Val field of the first attribute in n.Attr whose
+// Key field is equal to key. The second return value indicates if the
+// node has such an attribute. If no such attribute exists Attr
+// returns ("",false). Note that the Namespace fields of n.Attr are
+// not compared.
 func Attr(n *html.Node, key string) (string, bool) {
 	if n == nil {
 		return "", false
