@@ -1,22 +1,22 @@
 /*
-   Copyright 2015 The HTMLNode Authors. See the AUTHORS file at the
+   Copyright 2015 The Htmlnode Authors. See the AUTHORS file at the
    top-level directory of this distribution and at
    <https://xi2.org/x/htmlnode/m/AUTHORS>.
 
-   This file is part of HTMLNode.
+   This file is part of Htmlnode.
 
-   HTMLNode is free software: you can redistribute it and/or modify it
+   Htmlnode is free software: you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
 
-   HTMLNode is distributed in the hope that it will be useful, but
+   Htmlnode is distributed in the hope that it will be useful, but
    WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with HTMLNode.  If not, see <https://www.gnu.org/licenses/>.
+   along with Htmlnode.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 // Package htmlnode provides functions for searching, traversing and

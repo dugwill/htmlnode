@@ -1,4 +1,4 @@
-# HTMLNode
+# Htmlnode
 
 Package htmlnode provides functions for searching, traversing and printing
 parsed HTML. It is based on the html.Node data type from the
