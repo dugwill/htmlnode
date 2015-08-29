@@ -32,38 +32,38 @@
 //
 // Suppose we have a parsed HTML tree as follows:
 //
-//   R
-//     E html
-//       E head
-//       E body
-//         E div id=lowframe style=position: fixed; ...
-//         C  #lowframe
-//         E div id=topbar
-//           E div class=container
-//             E div class=top-heading id=heading-wide
-//               E a href=/
-//                 T The Go Programming Language
-//             E div class=top-heading id=heading-narrow
-//               E a href=/
-//   (1)           T Go
-//             E a href=# id=menu-button
-//               E span id=menu-button-arrow
-//                 T ▽
-//             E form method=GET action=/search
-//               E div id=menu
-//   (2)           E a href=/doc/
-//                   T Documents
-//   (3)           E a href=/pkg/
-//                   T Packages
-//   (4)           E a href=/project/
-//                   T The Project
-//   (5)           E a href=/help/
-//                   T Help
-//   (6)           E a href=/blog/
-//                   T Blog
-//   (7)           E a id=playgroundButton href=http://play.golang.org/ ...
-//                   T Play
-//                 E input type=text id=search name=q class=inactive ...
+//       R
+//         E html
+//           E head
+//           E body
+//             E div id=lowframe style=position: fixed; ...
+//             C  #lowframe
+//             E div id=topbar
+//               E div class=container
+//                 E div class=top-heading id=heading-wide
+//                   E a href=/
+//                     T The Go Programming Language
+//                 E div class=top-heading id=heading-narrow
+//                   E a href=/
+//   (1)               T Go
+//                 E a href=# id=menu-button
+//                   E span id=menu-button-arrow
+//                     T ▽
+//                 E form method=GET action=/search
+//                   E div id=menu
+//   (2)               E a href=/doc/
+//                       T Documents
+//   (3)               E a href=/pkg/
+//                       T Packages
+//   (4)               E a href=/project/
+//                       T The Project
+//   (5)               E a href=/help/
+//                       T Help
+//   (6)               E a href=/blog/
+//                       T Blog
+//   (7)               E a id=playgroundButton href=http://play.golang.org/ ...
+//                       T Play
+//                     E input type=text id=search name=q class=inactive ...
 //
 // This is actually a section of the golang.org front page and
 // demonstrates the Print function in this package. Some of the nodes
