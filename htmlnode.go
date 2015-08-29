@@ -76,22 +76,24 @@
 //
 // This is because tracing these nodes down from the root, they end
 // with the three element nodes <form>, <div> and <a>. It does not
-// matter that the <div> specified does not have the id=menu
+// matter that the <div> specified is missing the id=menu
 // attribute. All that matters are that its attributes (none) are a
 // subset of those in the tree. If, however, we were to use:
 //
 //   Find(root, "<form><div id=someotherid><a>")
 //
-// we would have no results since the id=someotherid does not
-// match in the tree. Another example:
+// we would get no results since the id=someotherid does not match in
+// the tree.
+//
+// Another example. Calling:
 //
 //   Find(root, "<a href=/>Go")
 //
 // returns node (1), so you can pick out non-element nodes too.
 //
 // Lastly, it is worth noting that the fragment passed to Find has to
-// parse in the context of a generic element node containing it. So it
-// is fine to call:
+// parse in the context of having a generic element node as its
+// parent. So it is fine to call:
 //
 //   Find(root, "<table><tr><td>")
 //
