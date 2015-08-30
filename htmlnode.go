@@ -311,7 +311,7 @@ func Find(root *html.Node, fragment string) []*html.Node {
 }
 
 // String returns a human readable representation of the single node
-// n, with optional terminal coloring using ANSI escape codes. The
+// n, with optional terminal colouring using ANSI escape codes. The
 // representation begins with a capital letter indicating the
 // NodeType. These are one of: X - ErrorNode, T - TextNode, R -
 // DocumentNode, E - ElementNode, C - CommentNode, D - DoctypeNode.
