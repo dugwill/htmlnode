@@ -310,6 +310,18 @@ func Find(root *html.Node, fragment string) []*html.Node {
 	return result
 }
 
+// Flatten walks the tree under root finding all html.TextNodes and
+// returns the string resulting from appending all their Data fields.
+func Flatten(root *html.Node) string {
+	var s string
+	for n := root; n != nil; n, _ = Next(n, root) {
+		if n.Type == html.TextNode {
+			s += n.Data
+		}
+	}
+	return s
+}
+
 // String returns a human readable representation of the single node
 // n, with optional terminal colouring using ANSI escape codes. The
 // representation begins with a capital letter indicating the
