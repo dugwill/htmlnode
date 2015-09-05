@@ -36,34 +36,34 @@
 //         E html
 //           E head
 //           E body
-//             E div id=lowframe style=position: fixed; ...
+//             E div id="lowframe" style="position: fixed;" ...
 //             C  #lowframe
-//             E div id=topbar
-//               E div class=container
-//                 E div class=top-heading id=heading-wide
-//                   E a href=/
+//             E div id="topbar"
+//               E div class="container"
+//                 E div class="top-heading" id="heading-wide"
+//                   E a href="/"
 //                     T The Go Programming Language
-//                 E div class=top-heading id=heading-narrow
-//                   E a href=/
+//                 E div class="top-heading" id="heading-narrow"
+//                   E a href="/"
 //   (1)               T Go
-//                 E a href=# id=menu-button
-//                   E span id=menu-button-arrow
+//                 E a href="#" id="menu-button"
+//                   E span id="menu-button-arrow"
 //                     T ▽
-//                 E form method=GET action=/search
-//                   E div id=menu
-//   (2)               E a href=/doc/
+//                 E form method="GET" action="/search"
+//                   E div id="menu"
+//   (2)               E a href="/doc/"
 //                       T Documents
-//   (3)               E a href=/pkg/
+//   (3)               E a href="/pkg/"
 //                       T Packages
-//   (4)               E a href=/project/
+//   (4)               E a href="/project/"
 //                       T The Project
-//   (5)               E a href=/help/
+//   (5)               E a href="/help/"
 //                       T Help
-//   (6)               E a href=/blog/
+//   (6)               E a href="/blog/"
 //                       T Blog
-//   (7)               E a id=playgroundButton href=http://play.golang.org/ ...
+//   (7)               E a href="http://play.golang.org/" ...
 //                       T Play
-//                     E input type=text id=search name=q class=inactive ...
+//                     E input type="text" id="search" name="q" ...
 //
 // This is actually a section of the golang.org front page and
 // demonstrates the Print function in this package. Some of the nodes
@@ -379,10 +379,11 @@ func String(n *html.Node, colour bool) string {
 		var attrs string
 		for _, a := range n.Attr {
 			name := c(a.Key, yel)
+			sVal := fmt.Sprintf("%#v", a.Val)
 			if a.Namespace != "" {
 				name = c(a.Namespace, yel) + ":" + name
 			}
-			attrs += " " + name + "=" + c(a.Val, cya)
+			attrs += " " + name + "=" + c(sVal, cya)
 		}
 		name := c(n.Data, red)
 		if n.Namespace != "" {
