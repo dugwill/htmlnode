@@ -131,6 +131,7 @@ package htmlnode // import "xi2.org/x/htmlnode"
 import (
 	"fmt"
 	"io"
+	"os"
 	"strings"
 
 	"golang.org/x/net/html"
@@ -396,17 +397,22 @@ func String(n *html.Node, colour bool) string {
 	return ""
 }
 
-// Print prints the tree at root to the io.Writer w using String to
-// print the nodes. It uses indention to convey the document
-// structure. Like String it can optionally colourize the output. It
+// PrintTree prints the tree at root to the io.Writer w using String
+// to print the nodes. It uses indention to convey the document
+// structure. Like String, it can optionally colourize the output. It
 // skips printing whitespace-only nodes of type html.TextNode.
-func Print(w io.Writer, root *html.Node, colour bool) {
+//
+// PrintTree returns any error it gets when calling fmt.Fprintf.
+func PrintTree(w io.Writer, root *html.Node, colour bool) error {
 	indent, n := "", root
 	var delta int
 	for n != nil {
 		if n.Type != html.TextNode || strings.Trim(n.Data, "\r\n\t ") != "" {
 			// print (skipping whitespace only TextNodes)
-			fmt.Fprintf(w, "%s%s\n", indent, String(n, colour))
+			_, err := fmt.Fprintf(w, "%s%s\n", indent, String(n, colour))
+			if err != nil {
+				return err
+			}
 		}
 		n, delta = Next(n, root)
 		if delta == 1 {
@@ -418,4 +424,10 @@ func Print(w io.Writer, root *html.Node, colour bool) {
 			delta++
 		}
 	}
+	return nil
+}
+
+// Print calls PrintTree, using os.Stdout and colour.
+func Print(root *html.Node) error {
+	return PrintTree(os.Stdout, root, true)
 }
