@@ -148,12 +148,12 @@ func Compare(n1, n2 *html.Node) bool {
 		n1.Namespace != n2.Namespace {
 		return false
 	}
-	am := map[html.Attribute]bool{}
+	am := map[html.Attribute]struct{}{}
 	for _, a := range n1.Attr {
-		am[a] = true
+		am[a] = struct{}{}
 	}
 	for _, a := range n2.Attr {
-		if am[a] != true {
+		if _, ok := am[a]; !ok {
 			return false
 		}
 	}
