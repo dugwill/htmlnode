@@ -364,7 +364,11 @@ func String(n *html.Node, colour bool) string {
 	rst := "\033[0m"
 	c := func(str, col string) string {
 		if colour {
-			return col + str + rst
+			var cs string
+			for _, s := range strings.Split(str, "\n") {
+				cs = cs + col + s + rst + "\n"
+			}
+			return cs[:len(cs)-1]
 		}
 		return str
 	}
