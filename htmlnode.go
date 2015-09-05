@@ -91,9 +91,10 @@
 //
 // returns node (1), so you can pick out non-element nodes too.
 //
-// Lastly, it is worth noting that the fragment passed to Find has to
-// parse in the context of having a generic element node as its
-// parent. So it is fine to call:
+// Note on fragments
+//
+// The fragment passed to Find has to parse in the context of having a
+// generic element node as its parent. So it is fine to call:
 //
 //   Find(root, "<table><tr><td>")
 //
@@ -101,9 +102,30 @@
 //
 //   Find(root, "<tr><td>")
 //
-// you would not get what you expected, since the fragment "<tr><td>"
-// is not valid directly under an arbitrary element node and the
-// underlying call to html.ParseFragment would not return anything.
+// you would get an empty slice, since the fragment "<tr><td>" is not
+// valid directly under an arbitrary element node and will not
+// parse. However, it should always be possible to specify more parent
+// nodes in the fragment, even if they are not within the tree being
+// searched.
+//
+// To illustrate this, suppose you have a subtree that looks like this
+//
+//   E tr
+//     E td
+//     E td
+//     E td
+//     E td
+//
+// and you want to call Find to get the <td> elements. You cannot use
+//
+//   Find(subtree, "<td>")
+//
+// but it is still OK to use
+//
+//   Find(subtree, "<table><tr><td>")
+//
+// even though there is no <table> in subtree. The matcher will look
+// look in subtree's parents.
 package htmlnode // import "xi2.org/x/htmlnode"
 
 import (
@@ -161,9 +183,9 @@ func Match(n1 *html.Node, n2 *html.Node) bool {
 // node. This leaf node is returned as its result. In order to parse
 // fragment, Leaf calls html.ParseFragment with a context of
 // html.Node{Type: html.ElementNode}. If there is an error parsing
-// fragment then Leaf returns a node of type html.ErrorNode. The
-// return value of Leaf is intended to be passed to Match as its
-// second argument.
+// fragment or no nodes are returned then Leaf returns a node
+// of type html.ErrorNode. The return value of Leaf is intended to be
+// passed to Match as its second argument.
 func Leaf(fragment string) *html.Node {
 	ns, err := html.ParseFragment(
 		strings.NewReader(fragment), &html.Node{Type: html.ElementNode})
@@ -298,6 +320,11 @@ func Prev(n *html.Node, root *html.Node) (*html.Node, int) {
 // function. It then does a depth first search of root and returns the
 // slice of all nodes n in root which satisfy Match(n,n2). If there
 // are no such nodes it returns the empty slice.
+//
+// Please note that fragment must parse in the context of having a
+// generic element node as its parent, since it is passed to
+// Leaf. Please see "Note on fragments" in the introduction for more
+// details.
 func Find(root *html.Node, fragment string) []*html.Node {
 	var result []*html.Node
 	n, n2 := root, Leaf(fragment)
