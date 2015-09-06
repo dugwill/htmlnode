@@ -72,22 +72,22 @@
 // The following call to Find will return the nodes numbered (2) ->
 // (7) in a slice:
 //
-//   Find(root, "<form><div><a>")
+//   Find(root, `<form><div><a>`)
 //
 // This is because tracing these nodes down from the root, they end
 // with the three element nodes <form>, <div> and <a>. It does not
-// matter that the <div> specified is missing the id=menu
+// matter that the <div> specified is missing the id="menu"
 // attribute. All that matters are that its attributes (none) are a
 // subset of those in the tree. If, however, we were to use:
 //
-//   Find(root, "<form><div id=someotherid><a>")
+//   Find(root, `<form><div id="someotherid"><a>`)
 //
-// we would get no results since the id=someotherid does not match in
-// the tree.
+// we would get no results since the id="someotherid" does not match
+// in the tree.
 //
 // Another example. Calling:
 //
-//   Find(root, "<a href=/>Go")
+//   Find(root, `<a href=/>Go`)
 //
 // returns node (1), so you can pick out non-element nodes too.
 //
@@ -96,13 +96,13 @@
 // The fragment passed to Find has to parse in the context of having a
 // generic element node as its parent. So it is fine to call:
 //
-//   Find(root, "<table><tr><td>")
+//   Find(root, `<table><tr><td>`)
 //
 // on some document, but if you were to instead use:
 //
-//   Find(root, "<tr><td>")
+//   Find(root, `<tr><td>`)
 //
-// you would get an empty slice, since the fragment "<tr><td>" is not
+// you would get an empty slice, since the fragment `<tr><td>` is not
 // valid directly under an arbitrary element node and will not
 // parse. However, it should always be possible to specify more parent
 // nodes in the fragment, even if they are not within the tree being
@@ -118,11 +118,11 @@
 //
 // and you want to call Find to get the <td> elements. You cannot use
 //
-//   Find(subtree, "<td>")
+//   Find(subtree, `<td>`)
 //
 // but it is still OK to use
 //
-//   Find(subtree, "<table><tr><td>")
+//   Find(subtree, `<table><tr><td>`)
 //
 // even though there is no <table> in subtree. The matcher will look
 // look in subtree's parents.
@@ -250,7 +250,7 @@ func NextSibElt(n *html.Node) *html.Node {
 }
 
 // PrevSibElt behaves like NextSibElt, but returns the previous
-// element instead.
+// sibling html.ElementNode instead.
 func PrevSibElt(n *html.Node) *html.Node {
 	if n == nil {
 		return nil
@@ -293,7 +293,7 @@ func Next(n *html.Node, root *html.Node) (*html.Node, int) {
 	return n.NextSibling, delta
 }
 
-// Prev behaves like Next, but returns the previous element instead.
+// Prev behaves like Next, but returns the previous node instead.
 func Prev(n *html.Node, root *html.Node) (*html.Node, int) {
 	delta := 0
 	if n == nil {
@@ -353,7 +353,7 @@ func Flatten(root *html.Node) string {
 // String returns a human readable representation of the single node
 // n, with optional terminal colouring using ANSI escape codes. The
 // representation begins with a capital letter indicating the
-// NodeType. These are one of: X - ErrorNode, T - TextNode, R -
+// html.NodeType. These are one of: X - ErrorNode, T - TextNode, R -
 // DocumentNode, E - ElementNode, C - CommentNode, D - DoctypeNode.
 func String(n *html.Node, colour bool) string {
 	if n == nil {
@@ -402,8 +402,8 @@ func String(n *html.Node, colour bool) string {
 	return ""
 }
 
-// PrintTree prints the tree at root to the io.Writer w using String
-// to print the nodes. It uses indention to convey the document
+// PrintTree prints the tree at root to the supplied io.Writer using
+// String to print the nodes. It uses indention to convey the document
 // structure. Like String, it can optionally colourize the output. It
 // skips printing whitespace-only nodes of type html.TextNode.
 //
@@ -432,7 +432,8 @@ func PrintTree(w io.Writer, root *html.Node, colour bool) error {
 	return nil
 }
 
-// Print calls PrintTree, using os.Stdout and colour.
+// Print calls PrintTree, using os.Stdout as the io.Writer and with
+// colour set to true.
 func Print(root *html.Node) error {
 	return PrintTree(os.Stdout, root, true)
 }
