@@ -91,7 +91,7 @@
 //
 // returns node (1), so you can pick out non-element nodes too.
 //
-// Note on fragments
+// A note on fragments
 //
 // The fragment passed to Find has to parse in the context of having a
 // generic element node as its parent. So it is fine to call:
@@ -323,9 +323,8 @@ func Prev(n *html.Node, root *html.Node) (*html.Node, int) {
 // are no such nodes it returns the empty slice.
 //
 // Please note that fragment must parse in the context of having a
-// generic element node as its parent, since it is passed to
-// Leaf. Please see "Note on fragments" in the introduction for more
-// details.
+// generic element node as its parent, since it is passed to Leaf. See
+// "A note on fragments" in the introduction for more details.
 func Find(root *html.Node, fragment string) []*html.Node {
 	var result []*html.Node
 	n, n2 := root, Leaf(fragment)
